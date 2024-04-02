@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="py-5">
+	<h5> Recent Posts  {{ posts.count }} </h5>
+
+	<div class="row">
+	{% for post in posts %}
+	<div class="col-sm-6 col-lg-4">
+		<div class="card-body bg-white rounded-0 p-3 rounded border shadow">
+			<div class="post-image">
+				<img class="img" src="{{ post.display_image.url }}" />
+			</div>
+
+			<div>
+				<h5> {{ post.title }} </h5>
+				<small class="text-muted"> - {{ post.author.get_full_name|default:post.author|title }} </small>
+				<p> {{ post.content|truncatewords:"10" }} </p>
+				<a href="{% url 'blog:read' post.title %}" class="btn btn-primary"> Read More </a>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+	</div>
+</div>
+{% endblock content %}
+
